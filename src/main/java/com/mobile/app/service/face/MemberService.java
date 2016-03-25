@@ -1,0 +1,8 @@
+package com.mobile.app.service.face;
+
+import com.mobile.app.dto.member.Member;
+
+public interface MemberService {
+	
+	public void saveMember(Member member);
+}

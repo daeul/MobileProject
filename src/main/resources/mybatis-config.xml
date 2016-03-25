@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Valid 한 설정 xml을 만들기 위해 DTD를 추가해 줍니다. -->
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<settings>
+<setting name="cacheEnabled" value="false" />
+<setting name="useGeneratedKeys" value="true" />
+<setting name="defaultExecutorType" value="REUSE" />
+</settings>
+    
+<!-- DTO Type Aliases -->
+ <typeAliases>
+<typeAlias alias="Member" type="com.mobile.app.dto.member.Member"/>
+</typeAliases> 
+    
+</configuration>
