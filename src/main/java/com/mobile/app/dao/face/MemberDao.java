@@ -6,4 +6,6 @@ public interface MemberDao {
 
 	void saveMember(Member member);
 
+	String findId(String m_id);
+
 }

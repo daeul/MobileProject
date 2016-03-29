@@ -12,4 +12,9 @@
 		VALUES (#{m_name}, #{m_birth}, #{m_gender}, #{m_id}, #{m_pwd})
 	</insert>
 	
+	<select id="findId" parameterType="String" resultType="String">
+		SELECT M_ID
+		FROM member
+		WHERE M_ID = #{m_id}
+	</select>
 </mapper>

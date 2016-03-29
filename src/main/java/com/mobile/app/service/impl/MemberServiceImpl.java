@@ -18,6 +18,12 @@ public class MemberServiceImpl implements MemberService{
 		memberDao.saveMember(member);
 		
 	}
+	
+	@Override
+	public String findId(String m_id) {
+		return memberDao.findId(m_id);
+		
+	}
 
 	
 }

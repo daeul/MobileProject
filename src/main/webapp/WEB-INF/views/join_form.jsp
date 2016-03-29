@@ -13,6 +13,10 @@
 $(function(){
 	var checkFlag = 'N';
 
+		$('#m_id').change(function(){
+			checkFlag = 'N';
+			console.log(checkFlag);
+		});
 
 		$('#join').click(function() {
 
@@ -22,20 +26,20 @@ $(function(){
 				return false;
 			}
 
-			/* if(checkFlag == 'N') {
+		  if(checkFlag == 'N') {
 				alert('아이디 중복확인이 필요합니다.');
 				return false;
-			} */
+			} 
 			
 			$('#joinForm').submit();
 			
 		});
 
-/* 		$('#check_id').click(function() {
+ 		$('#check_id').click(function() {
 			if (checkFlag == 'N') {
 				
 				$.ajax({
-					type : POST,
+					type : 'POST',
 					url : '/member/checkDupId.do',
 					data : $('#m_id').val(),
 					dataType : 'json',
@@ -43,11 +47,11 @@ $(function(){
 						alert('요청 중 오류발생');
 						return false;
 					},
-					success : function(data) {
-						if(data.result == 'dup') {
+					success : function(result) {
+						if(result == 'dup') {
 							alert('사용중인 아이디 입니다.');
 							$('#m_id').focus();
-						}else if(data.result == 'able') {
+						}else if(result == 'able') {
 							alert('사용가능한 아이디 입니다.');
 							checkFlag = 'Y';
 						}
@@ -55,7 +59,7 @@ $(function(){
 					}
 				});
 			}
-		}); */
+		});
 
 	});
 </script>
