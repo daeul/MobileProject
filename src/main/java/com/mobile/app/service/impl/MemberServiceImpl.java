@@ -25,5 +25,10 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	public Member findMember(Member member) {
+		return memberDao.findMember(member);
+		
+	}
+
 	
 }

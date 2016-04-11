@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="../../httpobject/common/js/jquery-1.11.0.min.js"></script>
@@ -13,9 +14,9 @@
 $(function(){
 	var checkFlag = 'N';
 
+		//ID 변경할때마다 중복체크하도록
 		$('#m_id').change(function(){
 			checkFlag = 'N';
-			console.log(checkFlag);
 		});
 
 		$('#join').click(function() {
@@ -37,8 +38,23 @@ $(function(){
 
  		$('#check_id').click(function() {
 			if (checkFlag == 'N') {
+					if($('#m_id').val() == '') {
+						alert('아이디를 입력하세요.');
+						$('#m_id').focus();
+						return false;
+					}
 				
-				$.ajax({
+					$.getJSON('/member/checkDupId.do?m_id='+$('#m_id').val() , function(data) {
+						if (data.re === 'dup') {
+							alert('중복된 아이디 입니다.');
+							$('#m_id').val('').focus();
+						} else if(data.re === 'able'){
+							alert('사용가능한 아이디 입니다.');
+							checkFlag = 'Y';
+						}
+					});
+				
+/* 				$.ajax({
 					type : 'POST',
 					url : '/member/checkDupId.do',
 					data : $('#m_id').val(),
@@ -57,7 +73,7 @@ $(function(){
 						}
 						
 					}
-				});
+				}); */
 			}
 		});
 

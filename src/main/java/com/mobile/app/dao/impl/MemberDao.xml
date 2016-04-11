@@ -17,4 +17,10 @@
 		FROM member
 		WHERE M_ID = #{m_id}
 	</select>
+	
+	<select id="findMember" parameterType="Member" resultType="Member">
+		SELECT *
+		FROM member
+		WHERE m_id = #{m_id} AND m_pwd = #{m_pwd}
+	</select>
 </mapper>

@@ -8,4 +8,6 @@ public interface MemberDao {
 
 	String findId(String m_id);
 
+	Member findMember(Member member);
+
 }

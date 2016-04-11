@@ -1,11 +1,21 @@
 package com.mobile.app.controller.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.Marshaller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.FlashMap;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mobile.app.dto.member.Member;
 import com.mobile.app.service.impl.MemberServiceImpl;
@@ -23,14 +33,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/checkDupId.do")
-	public String checkDupId(@RequestParam String m_id) {
-		String result = memberService.findId(m_id);
+	public @ResponseBody Map checkDupId(@RequestParam String m_id) {
+		Map<String,String> result = new HashMap<String, String>();
+		result.put("re", memberService.findId(m_id));
 		
-		System.out.println("****result :"+result);
-		if(result != null) {
-			result = "dup";
+		if(result.get("re") !=null) {
+			result.put("re","dup");
 		}else {
-			result = "able";
+			result.put("re","able");
 		}
 		
 		return result;
@@ -38,8 +48,22 @@ public class MemberController {
 	
 	@RequestMapping(value = "/joinProc.do")
 	public String joinProc(Member member) {
-		
 		memberService.saveMember(member);
 		return "login";
+	}
+	
+	@RequestMapping(value = "/login.do", method =  RequestMethod.POST)
+	public String login(Member member, Model model, RedirectAttributes result) {
+		System.out.println("아이디"+member.getM_id());
+		Member mem =  memberService.findMember(member);
+		System.out.println("Member 정보 :"+mem);
+		
+		if(mem == null) {
+			result.addFlashAttribute("result", "failed");
+			return "redirect:/login.do";
+		}
+		
+		model.addAttribute("member", mem);
+		return "main";
 	}
 }
