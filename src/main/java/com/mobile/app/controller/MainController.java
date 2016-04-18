@@ -15,11 +15,15 @@ public class MainController {
 	/**
 	 * login
 	 */
-	
+	/*
 	@RequestMapping(value = "/login.do", method =  RequestMethod.GET)
 	public String login() {
 		
 		return "login";
+	}*/
+	@RequestMapping(value = "/main.do")
+	public String main() {
+		return "main";
 	}
 	
 	@RequestMapping(value = "/login-proc.do")

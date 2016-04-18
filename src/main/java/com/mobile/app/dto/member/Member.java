@@ -3,12 +3,20 @@ package com.mobile.app.dto.member;
 import java.io.Serializable;
 
 public class Member implements Serializable {
+	
+	private int idx;
 	private String m_name;
 	private int m_birth;
 	private String m_gender;
 	private String m_id;
 	private String m_pwd;
 	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getM_name() {
 		return m_name;
 	}

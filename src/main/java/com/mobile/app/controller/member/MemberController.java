@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.Marshaller;
 
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,18 +53,30 @@ public class MemberController {
 		return "login";
 	}
 	
+	@RequestMapping(value = "/login.do", method =  RequestMethod.GET)
+	public String login() {
+		
+		return "login";
+	}
+	
 	@RequestMapping(value = "/login.do", method =  RequestMethod.POST)
-	public String login(Member member, Model model, RedirectAttributes result) {
+	public @ResponseBody String login(Member member, Model model) {
+		String result;
 		System.out.println("아이디"+member.getM_id());
 		Member mem =  memberService.findMember(member);
 		System.out.println("Member 정보 :"+mem);
 		
 		if(mem == null) {
-			result.addFlashAttribute("result", "failed");
-			return "redirect:/login.do";
+//			result.addFlashAttribute("result", "failed");
+//			return "redirect:login.do";
+			result = "nomember";
+		}else {
+			result = mem.getM_id();
 		}
 		
-		model.addAttribute("member", mem);
-		return "main";
+//		model.addAttribute("result", result);
+//		model.addAttribute("member", mem);
+		return result+"";
+//		return "main";
 	}
 }
